@@ -4,13 +4,13 @@
  * 모든 도메인별 핸들러를 하나로 통합합니다.
  */
 
-import { authHandlers } from '@shared/api/mock/handlers/auth';
-import { reviewHandlers } from '@entities/review/api/mock/handlers';
-import { kakaoOAuthHandlers } from '@shared/api/mock/handlers/oauth/kakao';
-import { myCampaignHandlers } from '@entities/history/api/myMock';
 import { campaignHandlers } from '@entities/campaign/api/mock/handlers';
-import { applicationHandlers } from '@shared/api/mock/handlers/applications';
+import { myCampaignHandlers } from '@entities/history/api/myMock';
 import { notificationHandlers } from '@entities/notification/api/mock/handlers';
+import { reviewHandlers } from '@entities/review/api/mock/handlers';
+import { applicationHandlers } from '@shared/api/mock/handlers/applications';
+import { authHandlers } from '@shared/api/mock/handlers/auth';
+import { kakaoOAuthHandlers } from '@shared/api/mock/handlers/oauth/kakao';
 import { reservationHandlers } from '@shared/api/mock/handlers/reservations';
 
 /**

@@ -14,16 +14,16 @@ import { toUnix, toUTCString, now } from '@shared/lib/date';
 
 import { generateState } from './utils';
 
-import type { KakaoLoginButtonProps } from './types';
+import type { NaverLoginButtonProps } from './types';
 
 import styles from './style.module.scss';
 
-export function NaverLoginButton({ className }: KakaoLoginButtonProps) {
+export function NaverLoginButton({ className }: NaverLoginButtonProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get('redirect');
 
-  const handleKakaoLogin = () => {
+  const handleNaverLogin = () => {
     // State 생성 (CSRF 방지)
     const state = generateState();
 
@@ -41,7 +41,7 @@ export function NaverLoginButton({ className }: KakaoLoginButtonProps) {
     // 개발 환경: Mock OAuth (바로 콜백 호출)
     if (process.env.NODE_ENV === 'development') {
       // Mock authorization code 생성
-      const mockCode = `mock-kakao-code-${toUnix()}`;
+      const mockCode = `mock-naver-code-${toUnix()}`;
 
       // 콜백 URL로 이동 (실제 카카오 OAuth 리다이렉트 시뮬레이션)
       const callbackUrl = new URL(ROUTES.AUTH_CALLBACK.KAKAO, window.location.origin);
@@ -68,8 +68,8 @@ export function NaverLoginButton({ className }: KakaoLoginButtonProps) {
   const buttonClassName = [styles.NaverLoginButton, className].filter(Boolean).join(' ');
 
   return (
-    <Button onClick={handleKakaoLogin} className={buttonClassName}>
-      <Image src={'/images/icons/IcoNaver.svg'} width={18} height={18} alt="카카오 로고" />
+    <Button type="button" onClick={handleNaverLogin} className={buttonClassName}>
+      <Image src={'/images/icons/IcoNaver.svg'} width={18} height={18} alt="네이버 로고" />
       <span>네이버로 계속하기</span>
     </Button>
   );

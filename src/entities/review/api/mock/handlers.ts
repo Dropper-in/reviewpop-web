@@ -3,8 +3,7 @@ import { ApiResponse } from '@shared/api/types/common.types';
 import { INITIAL_REVIEWS } from './data';
 import { BlogReviews, BlogReview, PostReview } from '../../types/review.types';
 import { createEditRequest } from './EditData';
-import { mockApplications } from '@/entities/history/api/myMock';
-import { mockApplications as sharedMockApplications } from '@shared/api/mock/data/applications';
+import { mockApplications } from '@shared/api/mock/data/applications';
 
 // 메모리상에서 리뷰 데이터 관리
 const reviews = [...INITIAL_REVIEWS];
@@ -63,7 +62,7 @@ export const reviewHandlers = [
 
     reviews.unshift(newReview);
 
-    // Update application status (Local MyMock)
+    // Update application status
     const application = mockApplications.find(
       (app) => app.campaign.id === body.campaignId && app.userId === body.userId,
     );
@@ -72,17 +71,6 @@ export const reviewHandlers = [
       application.status = 'reviewed';
       application.reviewStatus = 'reviewPending';
       application.reviewId = newReview.id;
-    }
-
-    // Update application status (Shared Mock - for Profile)
-    const sharedApp = sharedMockApplications.find(
-      (app) => app.campaign.id === body.campaignId && app.userId === body.userId,
-    );
-
-    if (sharedApp) {
-      sharedApp.status = 'reviewed';
-      sharedApp.reviewStatus = 'reviewPending';
-      sharedApp.reviewId = newReview.id;
     }
 
     return HttpResponse.json<ApiResponse<PostReview>>({
@@ -104,22 +92,13 @@ export const reviewHandlers = [
       }
       reviews[reviewIndex] = updatedReview;
 
-      // Update application status (Local)
+      // Update application status
       const application = mockApplications.find(
         (app) => app.campaign.id === updatedReview.campaignId,
       );
       if (application) {
         application.status = 'reviewed';
         application.reviewStatus = 'reviewPending';
-      }
-
-      // Update application status (Shared)
-      const sharedApp = sharedMockApplications.find(
-        (app) => app.campaign.id === updatedReview.campaignId,
-      );
-      if (sharedApp) {
-        sharedApp.status = 'reviewed';
-        sharedApp.reviewStatus = 'reviewPending';
       }
 
       return HttpResponse.json<ApiResponse<PostReview>>({

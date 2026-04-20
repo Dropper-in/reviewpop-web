@@ -1,6 +1,6 @@
 import { BlogReview } from '../../types/review.types';
 import { INITIAL_CAMPAIGNS } from '@entities/campaign/api/mock/data';
-import { getRandomDate, getRandomElement, getRandomImage } from '@/mocks/utils/random';
+import { getRandomDate, getRandomElement, getRandomImage } from '@shared/api/mock/utils/random';
 
 const REVIEW_TITLES = [
   '[솔직후기] 강남역 데이트 코스로 완벽했던 그 토성, 재방문 의사 200%!',

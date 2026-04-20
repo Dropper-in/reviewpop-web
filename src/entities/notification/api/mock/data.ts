@@ -5,7 +5,7 @@ import {
   getRandomBoolean,
   getRandomDate,
   getRandomElement,
-} from '@/mocks/utils/random';
+} from '@shared/api/mock/utils/random';
 
 const NOTIFICATION_TYPES: NotificationType[] = ['default', 'schedule', 'edit'];
 

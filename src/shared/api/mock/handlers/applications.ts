@@ -13,7 +13,6 @@ import {
   mockApplications,
   getApplicationsByUserId,
   getApplicationsByCampaignId,
-  findApplicationByUserAndCampaign,
   getCampaign,
 } from '../data/applications';
 import { findCampaignById } from '@entities/campaign/lib';

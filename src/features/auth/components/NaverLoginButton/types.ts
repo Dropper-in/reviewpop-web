@@ -1,3 +1,3 @@
-export interface KakaoLoginButtonProps {
+export interface NaverLoginButtonProps {
   className?: string;
 }

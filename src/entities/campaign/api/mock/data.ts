@@ -5,7 +5,7 @@ import {
   getRandomElements,
   getRandomImage,
   getRandomInt,
-} from '@/mocks/utils/random';
+} from '@shared/api/mock/utils/random';
 
 const LOCATIONS = [
   { sido: '서울', sigungu: '강남구' },

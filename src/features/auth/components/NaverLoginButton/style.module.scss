@@ -15,6 +15,14 @@
   @include font($size: 16, $weight: 700, $color: #fff);
   @include flex($align: center, $justify: space-between, $gap: 8);
 
+  // shared Button의 primary hover/active 색상을 덮어씀
+  &:not(:disabled):hover,
+  &:not(:disabled):active {
+    background: #00c73c;
+    transform: none;
+    box-shadow: none;
+  }
+
   span {
     width: 100%;
   }
