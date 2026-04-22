@@ -9,7 +9,6 @@ import Image from 'next/image';
 
 import { CONSTANTS } from '@shared/config/constants';
 import { ROUTES } from '@shared/config/routes';
-import { Button } from '@shared/components';
 import { toUnix, toUTCString, now } from '@shared/lib/date';
 
 import { generateState } from './utils';
@@ -68,9 +67,9 @@ export function NaverLoginButton({ className }: NaverLoginButtonProps) {
   const buttonClassName = [styles.NaverLoginButton, className].filter(Boolean).join(' ');
 
   return (
-    <Button type="button" onClick={handleNaverLogin} className={buttonClassName}>
+    <button type="button" onClick={handleNaverLogin} className={buttonClassName}>
       <Image src={'/images/icons/IcoNaver.svg'} width={18} height={18} alt="네이버 로고" />
       <span>네이버로 계속하기</span>
-    </Button>
+    </button>
   );
 }

@@ -1,7 +1,7 @@
 @use '@shared/styles/mixins' as *;
 
 .NaverLoginButton {
-  background: #00c73c;
+  background-color: #00c73c;
 
   width: 100%;
   height: 50px;
@@ -18,7 +18,7 @@
   // shared Button의 primary hover/active 색상을 덮어씀
   &:not(:disabled):hover,
   &:not(:disabled):active {
-    background: #00c73c;
+    background-color: #00c73c;
     transform: none;
     box-shadow: none;
   }

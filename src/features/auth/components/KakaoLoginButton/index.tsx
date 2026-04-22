@@ -9,7 +9,6 @@ import Image from 'next/image';
 
 import { CONSTANTS } from '@shared/config/constants';
 import { ROUTES } from '@shared/config/routes';
-import { Button } from '@shared/components';
 import { toUnix, toUTCString, now } from '@shared/lib/date';
 
 import { generateState } from './utils';
@@ -68,9 +67,9 @@ export function KakaoLoginButton({ className }: KakaoLoginButtonProps) {
   const buttonClassName = [styles.KakaoLoginButton, className].filter(Boolean).join(' ');
 
   return (
-    <Button type="button" onClick={handleKakaoLogin} className={buttonClassName}>
+    <button type="button" onClick={handleKakaoLogin} className={buttonClassName}>
       <Image src={'/images/icons/IcoKakao.svg'} width={18} height={18} alt="카카오 로고" />
       <span>카카오로 계속하기</span>
-    </Button>
+    </button>
   );
 }
