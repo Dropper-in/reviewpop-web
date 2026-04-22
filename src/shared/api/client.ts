@@ -7,7 +7,6 @@
 
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { env } from '@shared/config/env';
-import { CONSTANTS } from '@shared/config/constants';
 
 /**
  * Axios 인스턴스 생성
@@ -26,21 +25,8 @@ export const apiClient = axios.create({
  * 모든 요청에 인증 토큰을 자동으로 추가합니다.
  */
 apiClient.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
-    // localStorage에서 토큰 가져오기
-    if (typeof window !== 'undefined') {
-      const token = localStorage.getItem(CONSTANTS.STORAGE_KEYS.AUTH_TOKEN);
-
-      if (token && config.headers) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-    }
-
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  },
+  (config: InternalAxiosRequestConfig) => config,
+  (error) => Promise.reject(error),
 );
 
 /**
@@ -60,10 +46,7 @@ apiClient.interceptors.response.use(
 
       switch (status) {
         case 401:
-          // 인증 실패 - 로그인 페이지로 리다이렉트
           if (typeof window !== 'undefined') {
-            localStorage.removeItem(CONSTANTS.STORAGE_KEYS.AUTH_TOKEN);
-            localStorage.removeItem(CONSTANTS.STORAGE_KEYS.USER);
             window.location.href = '/login';
           }
           break;

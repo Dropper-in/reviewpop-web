@@ -34,10 +34,6 @@ export const CONSTANTS = {
 
   /** 로컬 스토리지 키 */
   STORAGE_KEYS: {
-    /** 인증 토큰 (deprecated 쿠키 사용) */
-    AUTH_TOKEN: 'auth_token',
-    /** 사용자 정보 (deprecated - 서버 세션 사용) */
-    USER: 'user',
     /** OAuth State */
     OAUTH_STATE: 'oauth_state',
   },

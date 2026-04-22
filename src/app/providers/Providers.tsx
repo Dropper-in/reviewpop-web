@@ -18,7 +18,6 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { MantineProvider, createTheme, Loader } from '@mantine/core';
 
 import { PopUiProvider } from '@pop-ui/core';
-import { useUserStore } from '@entities/user';
 import { env } from '@shared/config/env';
 
 interface ProvidersProps {
@@ -59,7 +58,6 @@ const queryClient = new QueryClient({
 
 export function Providers({ children }: ProvidersProps) {
   const [isMswReady, setIsMswReady] = useState(!env.useMock);
-  const restoreUser = useUserStore((state) => state.restoreUser);
 
   /**
    * MSW 초기화
@@ -85,14 +83,6 @@ export function Providers({ children }: ProvidersProps) {
       initMocks();
     }
   }, []);
-
-  /**
-   * 사용자 정보 복원
-   * localStorage에 저장된 사용자 정보를 복원합니다.
-   */
-  useEffect(() => {
-    restoreUser();
-  }, [restoreUser]);
 
   // MSW가 준비되지 않았으면 로딩 표시
   if (!isMswReady) {
