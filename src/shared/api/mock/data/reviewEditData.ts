@@ -1,4 +1,4 @@
-import { ReviewRequest } from '@entities/review';
+import { ReviewRequest } from '@entities/review/types/review.types';
 import { getRandomElement, getRandomImage } from '@shared/api/mock/utils/random';
 
 const MODIFICATION_CONTENTS = [

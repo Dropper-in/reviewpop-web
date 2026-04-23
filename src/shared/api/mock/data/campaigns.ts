@@ -1,4 +1,4 @@
-import { CampaignDetail, CAMPAIGN_CATEGORIES, CAMPAIGN_STATUSES } from '../../types/campaign.types';
+import { CampaignDetail, CAMPAIGN_CATEGORIES, CAMPAIGN_STATUSES } from '@entities/campaign/types/campaign.types';
 import {
   getRandomBoolean,
   getRandomElement,
@@ -23,7 +23,6 @@ const createRandomCampaign = (index: number): CampaignDetail => {
   const status = getRandomElement([...CAMPAIGN_STATUSES]);
   const location = getRandomElement(LOCATIONS);
 
-  // 기준일: 현재 시간
   const NOW = new Date();
 
   const appStart = new Date(NOW);
@@ -32,24 +31,19 @@ const createRandomCampaign = (index: number): CampaignDetail => {
   let reviewStart = new Date(NOW);
   let reviewEnd = new Date(NOW);
 
-  // 상태별 날짜 로직 적용
   switch (status) {
     case 'beforeRecruiting':
-      // 모집 전: 시작일은 미래 (1시간 ~ 3일 뒤)
       appStart.setTime(NOW.getTime() + getRandomInt(1, 72) * 60 * 60 * 1000);
       appEnd.setDate(appStart.getDate() + getRandomInt(7, 14));
       break;
 
     case 'recruiting':
-      // 모집 중: 시작일은 과거, 종료일은 미래
       appStart.setDate(NOW.getDate() - getRandomInt(1, 7));
       appEnd.setDate(NOW.getDate() + getRandomInt(1, 7));
       break;
 
     case 'completed':
-      // 완료: 리뷰 마감일이 과거
       reviewEnd.setDate(NOW.getDate() - getRandomInt(1, 30));
-      // 역산하여 나머지 날짜 설정
       reviewStart.setDate(reviewEnd.getDate() - getRandomInt(14, 21));
       annStart.setDate(reviewStart.getDate() - getRandomInt(1, 3));
       appEnd.setDate(annStart.getDate() - getRandomInt(1, 3));
@@ -57,27 +51,22 @@ const createRandomCampaign = (index: number): CampaignDetail => {
       break;
 
     default:
-      // 그 외 (inProgress, closed 등): 일반적인 흐름 (모집 종료 ~ 리뷰 마감 전)
-      // 모집은 끝났고(과거), 리뷰는 아직 안 끝났거나 진행 중
       appEnd.setDate(NOW.getDate() - getRandomInt(1, 7));
       appStart.setDate(appEnd.getDate() - getRandomInt(7, 14));
       break;
   }
 
-  // completed가 아닌 경우 나머지 날짜 순차 계산 (recruiting, beforeRecruiting 등)
   if (status !== 'completed') {
-    // 모집 기간 설정됨 -> 발표일 설정
     annStart = new Date(appEnd);
     annStart.setDate(appEnd.getDate() + getRandomInt(1, 3));
 
-    // 리뷰 기간 설정
     reviewStart = new Date(annStart);
     reviewStart.setDate(annStart.getDate() + getRandomInt(1, 3));
     reviewEnd = new Date(reviewStart);
     reviewEnd.setDate(reviewStart.getDate() + getRandomInt(14, 21));
   }
 
-  const annEnd = new Date(annStart); // 발표는 당일 마감 혹은 하루
+  const annEnd = new Date(annStart);
 
   return {
     id: String(index),
@@ -116,8 +105,6 @@ const createRandomCampaign = (index: number): CampaignDetail => {
     selectedCount: status === 'recruiting' ? 0 : getRandomInt(5, 20),
     providedItem: `${category} 관련 제공 상품 세트`,
     reservationPrecaution: ['예약은 필수입니다.', '노쇼 시 불이익이 있을 수 있습니다.'],
-
-    // 상세 정보 (CampaignDetail)
     estimatedValue: getRandomInt(10000, 100000),
     keywords: getRandomElements(KEYWORDS, 3),
     visitReservation: {

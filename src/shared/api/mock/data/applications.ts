@@ -6,7 +6,7 @@
  */
 
 import type { Application } from '@entities/application';
-import { INITIAL_CAMPAIGNS } from '@entities/campaign/api/mock/data';
+import { INITIAL_CAMPAIGNS } from '@shared/api/mock/data/campaigns';
 import type { CampaignDetail } from '@entities/campaign';
 
 export function getCampaign(id: string) {

@@ -1,5 +1,5 @@
-import { Notification, NotificationType } from '../../types/notification.types';
-import { INITIAL_CAMPAIGNS } from '@entities/campaign/api/mock/data';
+import { Notification, NotificationType } from '@entities/notification/types/notification.types';
+import { INITIAL_CAMPAIGNS } from '@shared/api/mock/data/campaigns';
 import {
   generateId,
   getRandomBoolean,
