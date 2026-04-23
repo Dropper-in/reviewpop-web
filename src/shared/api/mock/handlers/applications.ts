@@ -15,7 +15,6 @@ import {
   getApplicationsByCampaignId,
   getCampaign,
 } from '../data/applications';
-import { findCampaignById } from '@entities/campaign/lib';
 
 export const applicationHandlers = [
   /**
@@ -74,7 +73,7 @@ export const applicationHandlers = [
    */
   http.get('/api/campaigns/:campaignId/applications', ({ params }) => {
     const campaignId = params.campaignId as string;
-    const campaign = findCampaignById(campaignId);
+    const campaign = getCampaign(campaignId);
 
     if (!campaign) {
       return HttpResponse.json(
@@ -203,135 +202,4 @@ export const applicationHandlers = [
     );
   }),
 
-  /**
-   * 신청 취소
-   * DELETE /api/applications/:id
-   * @deprecated ID 제거로 인해 지원하지 않음
-   */
-  // http.delete('/api/applications/:id', ({ params, request }) => {
-  //   const applicationId = params.id as string;
-  //   const url = new URL(request.url);
-  //   const userId = url.searchParams.get('userId');
-
-  //   if (!userId) {
-  //     return HttpResponse.json(
-  //       {
-  //         success: false,
-  //         error: '사용자 ID가 필요합니다.',
-  //       } satisfies ApiResponse<never>,
-  //       { status: 400 },
-  //       );
-  //   }
-
-  //   const applicationIndex = mockApplications.findIndex((app) => app.id === applicationId);
-
-  //   if (applicationIndex === -1) {
-  //     return HttpResponse.json(
-  //       {
-  //         success: false,
-  //         error: '신청 내역을 찾을 수 없습니다.',
-  //       } satisfies ApiResponse<never>,
-  //       { status: 404 },
-  //       );
-  //   }
-
-  //   const application = mockApplications[applicationIndex];
-
-  //   // 본인 확인
-  //   if (application.userId !== userId) {
-  //     return HttpResponse.json(
-  //       {
-  //         success: false,
-  //         error: '본인의 신청만 취소할 수 있습니다.',
-  //       } satisfies ApiResponse<never>,
-  //       { status: 403 },
-  //       );
-  //   }
-
-  //   // 대기 중인 신청만 취소 가능
-  //   if (application.status !== 'pending') {
-  //     return HttpResponse.json(
-  //       {
-  //         success: false,
-  //         error: '대기 중인 신청만 취소할 수 있습니다.',
-  //       } satisfies ApiResponse<never>,
-  //       { status: 400 },
-  //       );
-  //   }
-
-  //   // 신청 취소 처리
-  //   mockApplications[applicationIndex] = {
-  //     ...application,
-  //     status: 'cancelled',
-  //     // cancelledAt: toISO(), // 필드 제거됨
-  //     updatedAt: toISO(),
-  //   };
-
-  //   // 체험 현재 신청 수 감소
-  //   const campaign = findCampaignById(application.campaignId);
-  //   if (campaign && campaign.currentRecruitment > 0) {
-  //     campaign.currentRecruitment -= 1;
-  //   }
-
-  //   return HttpResponse.json({
-  //     success: true,
-  //     data: mockApplications[applicationIndex],
-  //   } satisfies ApiResponse<Application>);
-  // }),
-
-  /**
-   * 신청 상태 변경 (관리자용 - 선정/거절)
-   * PATCH /api/applications/:id/status
-   * @deprecated ID 제거로 인해 지원하지 않음
-   */
-  // http.patch('/api/applications/:id/status', async ({ params, request }) => {
-  //   const applicationId = params.id as string;
-  //   const body = (await request.json()) as { status: 'selected' | 'rejected' };
-
-  //   const applicationIndex = mockApplications.findIndex((app) => app.id === applicationId);
-
-  //   if (applicationIndex === -1) {
-  //     return HttpResponse.json(
-  //       {
-  //         success: false,
-  //         error: '신청 내역을 찾을 수 없습니다.',
-  //       } satisfies ApiResponse<never>,
-  //       { status: 404 },
-  //       );
-  //   }
-
-  //   const application = mockApplications[applicationIndex];
-
-  //   // 대기 중인 신청만 상태 변경 가능
-  //   if (application.status !== 'pending') {
-  //     return HttpResponse.json(
-  //       {
-  //         success: false,
-  //         error: '대기 중인 신청만 상태를 변경할 수 있습니다.',
-  //       } satisfies ApiResponse<never>,
-  //       { status: 400 },
-  //       );
-  //   }
-
-  //   // 신청 상태 변경
-  //   mockApplications[applicationIndex] = {
-  //     ...application,
-  //     status: body.status,
-  //     // decidedAt: toISO(), // 필드 제거됨
-  //     updatedAt: toISO(),
-  //   };
-
-  //   // 선정된 경우 체험의 선정 수 증가
-  //   if (body.status === 'selected') {
-  //     const campaign = findCampaignById(application.campaignId);
-  //     if (campaign) {
-  //       campaign.selectedCount = (campaign.selectedCount || 0) + 1;
-  //     }
-  //   }
-
-  //   return HttpResponse.json({
-  //     success: true,
-  //     data: mockApplications[applicationIndex],
-  //   } satisfies ApiResponse<Application>);
-  // }),
 ];
