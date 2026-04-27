@@ -35,3 +35,17 @@ export const getCampaign = async (id: string): Promise<CampaignDetail> => {
   const response = await apiClient.get<ApiResponse<CampaignDetail>>(`/campaigns/${id}`);
   return unwrapApiResponse(response.data);
 };
+
+export interface CampaignBottomSheetData {
+  providedItem: string;
+  description: string;
+  reviewMission: string[];
+  reviewMissionNotice: string;
+}
+
+export const getCampaignDetail = async (id: string): Promise<CampaignBottomSheetData> => {
+  const response = await apiClient.get<ApiResponse<CampaignBottomSheetData>>(
+    `/campaigns/${id}/detail`,
+  );
+  return unwrapApiResponse(response.data);
+};

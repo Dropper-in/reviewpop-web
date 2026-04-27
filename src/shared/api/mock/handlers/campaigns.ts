@@ -1,5 +1,6 @@
 import { http, HttpResponse } from 'msw';
 import { INITIAL_CAMPAIGNS } from '@shared/api/mock/data/campaigns';
+import { findCampaignById, mockCampaignDetails } from '@shared/api/mock/data/campaignDetails';
 import { CampaignCategory, CampaignStatus } from '@entities/campaign/types/campaign.types';
 
 export const campaignHandlers = [
@@ -86,5 +87,25 @@ export const campaignHandlers = [
     }
 
     return HttpResponse.json({ success: false, error: 'Campaign not found' }, { status: 404 });
+  }),
+
+  http.get('/api/campaigns/:id/detail', ({ params }) => {
+    const { id } = params as { id: string };
+    const detail = mockCampaignDetails.find((c) => c.id === id);
+    const campaign = findCampaignById(id);
+
+    if (!campaign) {
+      return HttpResponse.json({ success: false, error: 'Campaign not found' }, { status: 404 });
+    }
+
+    return HttpResponse.json({
+      success: true,
+      data: {
+        providedItem: detail?.providedItem ?? campaign.providedItem,
+        description: detail?.description ?? campaign.description,
+        reviewMission: detail?.reviewMission ?? [],
+        reviewMissionNotice: detail?.reviewMissionNotice ?? '',
+      },
+    });
   }),
 ];
