@@ -8,6 +8,7 @@ import { http, HttpResponse } from 'msw';
 
 import type { ApiResponse } from '@shared/api/types/common.types';
 import type { Application } from '@entities/application';
+import { CONSTANTS } from '@shared/config/constants';
 
 import {
   mockApplications,
@@ -97,16 +98,21 @@ export const applicationHandlers = [
    * 체험 신청
    * POST /api/campaigns/:campaignId/apply
   //  */
-  http.post('/api/campaigns/:campaignId/apply', async ({ params, request }) => {
+  http.post('/api/campaigns/:campaignId/apply', async ({ params, request, cookies }) => {
+    const userId = cookies[CONSTANTS.COOKIE_KEYS.MOCK_USER_ID];
+    if (!userId) {
+      return HttpResponse.json(
+        { success: false, error: '인증이 필요합니다.' } satisfies ApiResponse<never>,
+        { status: 401 },
+      );
+    }
     const campaignId = params.campaignId as string;
-    // CreateApplicationRequest가 주석 처리되었으므로 필요한 필드만 정의
     const body = (await request.json()) as {
       name: string;
       phoneNumber: string;
       blogAddress: string;
       message?: string;
     };
-    const userId = 'kakao-1001';
     // 체험 존재 여부 확인
     const campaign = getCampaign(campaignId);
     if (!campaign) {

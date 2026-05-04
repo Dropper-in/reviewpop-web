@@ -1,11 +1,15 @@
 import { http, HttpResponse } from 'msw';
 
+import { CONSTANTS } from '@shared/config/constants';
 import { mockReservations } from '@shared/api/mock/data/reservations';
 import { mockApplications } from '@shared/api/mock/data/applications';
 
 export const myCampaignHandlers = [
-  http.get('/api/my-campaigns', () => {
-    const userId = 'kakao-1001';
+  http.get('/api/my-campaigns', ({ cookies }) => {
+    const userId = cookies[CONSTANTS.COOKIE_KEYS.MOCK_USER_ID];
+    if (!userId) {
+      return HttpResponse.json({ success: false, error: 'UNAUTHORIZED' }, { status: 401 });
+    }
     const myApplications = mockApplications
       .filter((app) => app.userId === userId)
       .map((app) => {

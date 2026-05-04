@@ -42,6 +42,8 @@ export const CONSTANTS = {
   COOKIE_KEYS: {
     /** 인증 토큰 */
     AUTH_TOKEN: 'auth_token',
+    /** Mock 유저 ID (개발 환경 전용, MSW 핸들러용) */
+    MOCK_USER_ID: 'mock_user_id',
   },
 
   /** JWT 설정 */

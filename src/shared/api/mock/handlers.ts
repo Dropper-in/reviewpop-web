@@ -6,6 +6,7 @@
 
 import { authHandlers } from '@shared/api/mock/handlers/auth';
 import { kakaoOAuthHandlers } from '@shared/api/mock/handlers/oauth/kakao';
+import { naverOAuthHandlers } from '@shared/api/mock/handlers/oauth/naver';
 import { campaignHandlers } from '@shared/api/mock/handlers/campaigns';
 import { myCampaignHandlers } from '@shared/api/mock/handlers/myCampaigns';
 import { notificationHandlers } from '@shared/api/mock/handlers/notifications';
@@ -20,6 +21,7 @@ import { reservationHandlers } from '@shared/api/mock/handlers/reservations';
  */
 export const handlers = [
   ...kakaoOAuthHandlers,
+  ...naverOAuthHandlers,
   ...authHandlers,
   ...campaignHandlers,
   ...myCampaignHandlers,
