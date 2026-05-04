@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Notification } from '../types/notification.types';
 import { notificationApi } from '../api/notificationApi';
 
@@ -13,13 +13,6 @@ export const useNotifications = () => {
         setIsLoading(true);
         const data = await notificationApi.getNotifications();
         setNotifications(data);
-        if (data.length > 0) {
-          try {
-            await notificationApi.readNotifications(data[0].id);
-          } catch (e) {
-            console.warn('알림 읽음 처리 실패:', e);
-          }
-        }
       } catch (err) {
         setError(err instanceof Error ? err : new Error('Unknown error'));
       } finally {
@@ -30,6 +23,10 @@ export const useNotifications = () => {
     fetchNotifications();
   }, []);
 
+  const readNotification = useCallback((id: string) => {
+    notificationApi.readNotifications(id);
+  }, []);
+
   const newNotifications: Notification[] = [];
   const oldNotifications: Notification[] = [];
 
@@ -37,5 +34,5 @@ export const useNotifications = () => {
     notify.isWatched ? oldNotifications.push(notify) : newNotifications.push(notify),
   );
 
-  return { newNotifications, oldNotifications, isLoading, error };
+  return { newNotifications, oldNotifications, isLoading, error, readNotification };
 };

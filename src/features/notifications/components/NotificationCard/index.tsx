@@ -9,13 +9,15 @@ import { Notification, NotificationType } from '@entities/notification/types/not
 import styles from './style.module.scss';
 
 export default function NotificationCard({
+  id,
   campaignId,
   isWatched,
   title,
   content,
   type,
   createdAt,
-}: Notification) {
+  onRead,
+}: Notification & { onRead: (id: string) => void }) {
   const ICONS: Record<NotificationType, string> = {
     default: '/images/icons/IcoNotice.svg',
     schedule: '/images/icons/IcoCalendar.svg',
@@ -23,7 +25,7 @@ export default function NotificationCard({
   };
 
   return (
-    <Link href={`/campaign/${campaignId}`}>
+    <Link href={`/campaign/${campaignId}`} onClick={() => onRead(id)}>
       <div className={`${styles['Notification']} ${styles[isWatched ? '' : 'Notification--New']}`}>
         <Image src={ICONS[type as NotificationType]} width={18} height={18} alt={`아이콘`} />
         <div className={styles.Notification__Wrapper}>

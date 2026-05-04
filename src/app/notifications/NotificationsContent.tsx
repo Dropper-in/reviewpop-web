@@ -9,7 +9,7 @@ import { usePageHeader } from '@shared/hooks/usePageHeader';
 import styles from './page.module.scss';
 
 export default function NotificationsContent() {
-  const { newNotifications, oldNotifications, isLoading } = useNotifications();
+  const { newNotifications, oldNotifications, isLoading, readNotification } = useNotifications();
 
   usePageHeader({
     showBackButton: true,
@@ -21,9 +21,13 @@ export default function NotificationsContent() {
   if (isLoading) return <Loader />;
   return (
     <div className={styles.Notification}>
-      <NotificationList notifications={newNotifications} />
-      <h2>지난 알림</h2>
-      <NotificationList notifications={oldNotifications} />
+      <NotificationList notifications={newNotifications} onRead={readNotification} />
+      {oldNotifications.length > 0 && (
+        <>
+          <h2>지난 알림</h2>
+          <NotificationList notifications={oldNotifications} onRead={readNotification} />
+        </>
+      )}
     </div>
   );
 }
