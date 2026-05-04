@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 
 import { CONSTANTS } from '@shared/config/constants';
@@ -24,7 +24,6 @@ interface OAuthLoginButtonProps {
 }
 
 export function OAuthLoginButton({ label, icon, config, className }: OAuthLoginButtonProps) {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get('redirect');
 
@@ -45,7 +44,7 @@ export function OAuthLoginButton({ label, icon, config, className }: OAuthLoginB
       const callbackUrl = new URL(config.callbackRoute, window.location.origin);
       callbackUrl.searchParams.set('code', mockCode);
       callbackUrl.searchParams.set('state', state);
-      router.push(callbackUrl.toString());
+      window.location.href = callbackUrl.toString();
       return;
     }
 
