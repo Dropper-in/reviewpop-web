@@ -6,6 +6,7 @@ import {
   getRandomImage,
   getRandomInt,
 } from '@shared/api/mock/utils/random';
+import { mockCampaignDetails } from '@shared/api/mock/data/campaignDetails';
 
 const LOCATIONS = [
   { sido: '서울', sigungu: '강남구' },
@@ -133,6 +134,7 @@ const createRandomCampaign = (index: number): CampaignDetail => {
   };
 };
 
-export const INITIAL_CAMPAIGNS: CampaignDetail[] = Array.from({ length: 50 }, (_, i) =>
-  createRandomCampaign(i),
-);
+export const INITIAL_CAMPAIGNS: CampaignDetail[] = [
+  ...mockCampaignDetails,
+  ...Array.from({ length: 35 }, (_, i) => createRandomCampaign(i + 16)),
+];

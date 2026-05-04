@@ -83,6 +83,7 @@ export const mockApplications: Application[] = [
     campaign: getCampaign('5'),
     status: 'selected',
     isReservated: true,
+    reservationDate: getReservationDate(getCampaign('5')),
     name: '김철수',
     blogAddress: 'https://blog.naver.com/kakao-1001',
     phoneNumber: '010-1234-5678',
