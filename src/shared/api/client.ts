@@ -5,7 +5,7 @@
  * 공통 설정, 인터셉터, 에러 처리 등이 포함되어 있습니다.
  */
 
-import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosError } from 'axios';
 import { env } from '@shared/config/env';
 
 /**
@@ -18,16 +18,6 @@ export const apiClient = axios.create({
     'Content-Type': 'application/json',
   },
 });
-
-/**
- * 요청 인터셉터
- *
- * 모든 요청에 인증 토큰을 자동으로 추가합니다.
- */
-apiClient.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => config,
-  (error) => Promise.reject(error),
-);
 
 /**
  * 응답 인터셉터
