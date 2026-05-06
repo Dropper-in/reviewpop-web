@@ -5,6 +5,7 @@ import Image from 'next/image';
 
 import { CONSTANTS } from '@shared/config/constants';
 import { ROUTES } from '@shared/config/routes';
+import { Button } from '@shared/components';
 import { toUnix, toUTCString, now } from '@shared/lib/date';
 
 import { generateState } from './utils';
@@ -61,9 +62,9 @@ export function OAuthLoginButton({ label, icon, config, className }: OAuthLoginB
   };
 
   return (
-    <button type="button" onClick={handleLogin} className={className}>
+    <Button onClick={handleLogin} className={className}>
       <Image src={icon.src} width={18} height={18} alt={icon.alt} />
       <span>{label}</span>
-    </button>
+    </Button>
   );
 }

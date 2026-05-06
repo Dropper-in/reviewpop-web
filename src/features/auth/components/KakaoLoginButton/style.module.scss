@@ -18,8 +18,7 @@
   // shared Button의 primary hover/active 색상을 덮어씀
   &:not(:disabled):hover,
   &:not(:disabled):active {
-    background-color: #f9e001 !important;
-    transform: none;
+    background-color: #f9e001;
     box-shadow: none;
   }
 
