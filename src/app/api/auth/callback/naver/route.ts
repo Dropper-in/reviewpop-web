@@ -8,7 +8,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import axios from 'axios';
 import { CONSTANTS } from '@shared/config/constants';
 import { ROUTES } from '@shared/config/routes';
-import { setAuthCookie, verifyOAuthStateCookie } from '@shared/lib/cookies.server';
+import { verifyOAuthStateCookie } from '@shared/lib/cookies.server';
 import type { NaverTokenResponse, AuthResponse } from '@shared/types/auth.types';
 
 /**
@@ -37,28 +37,6 @@ export async function GET(request: NextRequest) {
       return NextResponse.redirect(new URL(ROUTES.LOGIN + '?error=invalid_state', request.url));
     }
 
-    let access_token: string;
-
-    if (process.env.NODE_ENV === 'development') {
-      access_token = `mock-naver-access-token-${Date.now()}`;
-    } else {
-      const tokenResponse = await axios.get<NaverTokenResponse>(
-        CONSTANTS.OAUTH.NAVER.TOKEN_URL,
-        {
-          params: {
-            grant_type: 'authorization_code',
-            client_id: process.env.NAVER_CLIENT_ID || '',
-            client_secret: process.env.NAVER_CLIENT_SECRET || '',
-            redirect_uri: `${process.env.NEXT_PUBLIC_APP_URL}${ROUTES.AUTH_CALLBACK.NAVER}`,
-            code,
-            state,
-          },
-        },
-      );
-
-      access_token = tokenResponse.data.access_token;
-    }
-
     let token: string;
     let mockUserId: string | undefined;
 
@@ -79,6 +57,22 @@ export async function GET(request: NextRequest) {
         provider: 'naver',
       });
     } else {
+      const tokenResponse = await axios.get<NaverTokenResponse>(
+        CONSTANTS.OAUTH.NAVER.TOKEN_URL,
+        {
+          params: {
+            grant_type: 'authorization_code',
+            client_id: process.env.NAVER_CLIENT_ID || '',
+            client_secret: process.env.NAVER_CLIENT_SECRET || '',
+            redirect_uri: `${process.env.NEXT_PUBLIC_APP_URL}${ROUTES.AUTH_CALLBACK.NAVER}`,
+            code,
+            state,
+          },
+        },
+      );
+
+      const access_token = tokenResponse.data.access_token;
+
       const backendResponse = await axios.post<AuthResponse>(
         `${process.env.NEXT_PUBLIC_API_URL}${ROUTES.API.SOCIAL_LOGIN.NAVER}`,
         { access_token },
@@ -90,8 +84,6 @@ export async function GET(request: NextRequest) {
 
       token = backendResponse.data.data.token;
     }
-
-    await setAuthCookie(token);
 
     const finalRedirectUrl = redirectUrl || ROUTES.HOME;
     const response = NextResponse.redirect(new URL(finalRedirectUrl, request.url));
