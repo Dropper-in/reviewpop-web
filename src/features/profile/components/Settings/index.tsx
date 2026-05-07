@@ -1,3 +1,5 @@
+import { useQueryClient } from '@tanstack/react-query';
+
 import { Modal, toast } from '@shared/components';
 import { ROUTES } from '@shared/config/routes';
 
@@ -6,12 +8,15 @@ import { SettingList } from '../SettingList';
 import styles from './style.module.scss';
 
 export function Settings() {
+  const queryClient = useQueryClient();
+
   const handleLogout = async () => {
     try {
       await fetch('/api/auth/logout', {
         method: 'POST',
         credentials: 'include',
       });
+      queryClient.removeQueries({ queryKey: ['user'] });
       toast.success('로그아웃 되었습니다.');
     } catch (error) {
       toast.error('로그아웃을 실패하였습니다.');

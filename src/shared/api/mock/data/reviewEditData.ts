@@ -1,5 +1,5 @@
-import { ReviewRequest } from '@entities/review';
-import { getRandomElement, getRandomImage } from '@/mocks/utils/random';
+import { ReviewRequest } from '@entities/review/types/review.types';
+import { getRandomElement, getRandomImage } from '@shared/api/mock/utils/random';
 
 const MODIFICATION_CONTENTS = [
   '사진이 너무 어둡습니다. 밝게 보정 부탁드립니다.',

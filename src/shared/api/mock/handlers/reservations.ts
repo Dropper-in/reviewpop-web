@@ -20,8 +20,6 @@ import {
 } from '@shared/api/mock/data/reservations';
 import { mockApplications } from '../data/applications';
 
-import { mockApplications as myCampaignsMockApps } from '@entities/history/api/myMock';
-
 export const reservationHandlers = [
   /**
    * 예약 설정 조회
@@ -108,15 +106,6 @@ export const reservationHandlers = [
       // reviewStatus도 아직 설정하지 않음
     }
 
-    // Update application status (My Campaigns Data - Sync)
-    const myCampaignApp = myCampaignsMockApps.find((app) => app.id === body.applicationId);
-    if (myCampaignApp) {
-      myCampaignApp.isReservated = true;
-      myCampaignApp.reservationDate = body.date;
-      myCampaignApp.reservationId = newReservation.id;
-      // status는 selected 유지
-    }
-
     return HttpResponse.json({
       success: true,
       data: newReservation,
@@ -156,12 +145,6 @@ export const reservationHandlers = [
       application.reservationDate = body.date;
     }
 
-    // Update application status (My Campaigns Data - Sync)
-    const myCampaignApp = myCampaignsMockApps.find((app) => app.reservationId === reservationId);
-    if (myCampaignApp && body.date) {
-      myCampaignApp.reservationDate = body.date;
-    }
-
     return HttpResponse.json({
       success: true,
       data: mockReservations[reservationIndex],
@@ -197,16 +180,6 @@ export const reservationHandlers = [
       application.reservationId = undefined;
       application.status = 'selected'; // 예약 취소 시 selected 상태로 복귀
       application.reviewStatus = undefined;
-    }
-
-    // Update application status (My Campaigns Data - Sync)
-    const myCampaignApp = myCampaignsMockApps.find((app) => app.reservationId === reservationId);
-    if (myCampaignApp) {
-      myCampaignApp.isReservated = false;
-      myCampaignApp.reservationDate = undefined;
-      myCampaignApp.reservationId = undefined;
-      myCampaignApp.status = 'selected';
-      myCampaignApp.reviewStatus = undefined;
     }
 
     return HttpResponse.json({

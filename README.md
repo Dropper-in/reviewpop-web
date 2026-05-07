@@ -975,7 +975,8 @@ import { Card } from '@shared/ui/Card';
 > 🚧 API 문서는 개발 진행에 따라 추가
 
 현재는 Mock API를 사용 중입니다.
-Mock 데이터는 [src/shared/api/mock/data.ts](src/shared/api/mock/data.ts)에서 확인할 수 있습니다.
+Mock 데이터는 [src/shared/api/mock/data/](src/shared/api/mock/data/)에서 확인할 수 있습니다.
+MSW 핸들러 통합 진입점은 [src/shared/api/mock/handlers.ts](src/shared/api/mock/handlers.ts)입니다.
 
 ---
 

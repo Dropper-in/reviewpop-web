@@ -1,15 +1,10 @@
-/**
- * Mock 체험 데이터
- *
- * 기본 체험 엔티티 데이터를 관리합니다.
- * 총 15개의 체험 데이터로 다양한 상태와 카테고리를 시뮬레이션합니다.
- */
-
 import type {
   Campaign,
   CampaignStatus,
   CampaignCategory,
   CampaignSchedule,
+  CampaignDetail,
+  VisitReservation,
 } from '@entities/campaign/types/campaign.types';
 
 const toRange = (start: string, end: string): { start: string; end: string } => ({
@@ -30,15 +25,7 @@ const createSchedule = (
   review: toRange(reviewStart, reviewEnd),
 });
 
-/**
- * Campaign mock 데이터
- *
- * 상태 분포:
- * - recruiting (진행 중): 5개
- * - completed (마감): 10개
- */
 export const mockCampaigns: Campaign[] = [
-  // recruiting 체험 (5개)
   {
     id: '1',
     title: '신제품 커피 체험단 모집',
@@ -61,12 +48,12 @@ export const mockCampaigns: Campaign[] = [
       'https://picsum.photos/seed/campaign1-8/800/600',
     ],
     schedule: createSchedule(
-      '2025-12-02T10:00:00+09:00',
-      '2025-12-09T23:59:59+09:00',
-      '2025-12-10T00:00:00+09:00',
-      '2025-12-12T23:59:59+09:00',
-      '2025-12-13T00:00:00+09:00',
-      '2025-12-27T23:59:59+09:00',
+      '2026-06-01T10:00:00+09:00',
+      '2026-06-08T23:59:59+09:00',
+      '2026-06-09T00:00:00+09:00',
+      '2026-06-11T23:59:59+09:00',
+      '2026-06-12T00:00:00+09:00',
+      '2026-06-26T23:59:59+09:00',
     ),
     location: { sido: '서울', sigungu: '중구' },
     address: '서울특별시 중구 세종대로 110',
@@ -83,7 +70,7 @@ export const mockCampaigns: Campaign[] = [
     providedItem: '프리미엄 에센스 30ml + 크림 15ml 샘플',
     reservationPrecaution: ['예약 시 유의사항입니다.'],
     category: '뷰티' as CampaignCategory,
-    status: 'beforeRecruiting' as CampaignStatus,
+    status: 'recruiting' as CampaignStatus,
     thumbnail: '/images/temp/CampaignCardImg-02.jpg',
     detailImages: [
       'https://picsum.photos/seed/campaign2/800/600',
@@ -94,12 +81,12 @@ export const mockCampaigns: Campaign[] = [
       'https://picsum.photos/seed/campaign2-6/800/600',
     ],
     schedule: createSchedule(
-      '2025-12-03T10:00:00+09:00',
-      '2025-12-10T23:59:59+09:00',
-      '2025-12-11T00:00:00+09:00',
-      '2025-12-13T23:59:59+09:00',
-      '2025-12-14T00:00:00+09:00',
-      '2025-12-28T23:59:59+09:00',
+      '2026-04-15T10:00:00+09:00',
+      '2026-05-31T23:59:59+09:00',
+      '2026-06-01T00:00:00+09:00',
+      '2026-06-03T23:59:59+09:00',
+      '2026-06-04T00:00:00+09:00',
+      '2026-06-18T23:59:59+09:00',
     ),
     maxRecruitment: 30,
     currentRecruitment: 0,
@@ -131,12 +118,12 @@ export const mockCampaigns: Campaign[] = [
       'https://picsum.photos/seed/campaign3-10/800/600',
     ],
     schedule: createSchedule(
-      '2025-11-25T00:00:00+09:00',
-      '2025-12-05T23:59:59+09:00',
-      '2025-12-06T00:00:00+09:00',
-      '2025-12-08T23:59:59+09:00',
-      '2025-12-09T00:00:00+09:00',
-      '2025-12-23T23:59:59+09:00',
+      '2026-04-25T00:00:00+09:00',
+      '2026-05-15T23:59:59+09:00',
+      '2026-05-16T00:00:00+09:00',
+      '2026-05-18T23:59:59+09:00',
+      '2026-05-19T00:00:00+09:00',
+      '2026-06-02T23:59:59+09:00',
     ),
     maxRecruitment: 40,
     currentRecruitment: 12,
@@ -163,12 +150,12 @@ export const mockCampaigns: Campaign[] = [
       'https://picsum.photos/seed/campaign4-5/800/600',
     ],
     schedule: createSchedule(
-      '2025-11-20T00:00:00+09:00',
-      '2025-12-10T23:59:59+09:00',
-      '2025-12-11T00:00:00+09:00',
-      '2025-12-13T23:59:59+09:00',
-      '2025-12-14T00:00:00+09:00',
-      '2025-12-28T23:59:59+09:00',
+      '2026-04-20T00:00:00+09:00',
+      '2026-06-15T23:59:59+09:00',
+      '2026-06-16T00:00:00+09:00',
+      '2026-06-18T23:59:59+09:00',
+      '2026-06-19T00:00:00+09:00',
+      '2026-07-03T23:59:59+09:00',
     ),
     location: { sido: '경기', sigungu: '성남시' },
     address: '경기도 성남시 분당구 판교역로 235',
@@ -197,12 +184,12 @@ export const mockCampaigns: Campaign[] = [
       'https://picsum.photos/seed/campaign5-7/800/600',
     ],
     schedule: createSchedule(
-      '2025-11-15T00:00:00+09:00',
-      '2025-12-02T23:59:59+09:00',
-      '2025-12-03T00:00:00+09:00',
-      '2025-12-05T23:59:59+09:00',
-      '2025-12-06T00:00:00+09:00',
-      '2025-12-20T23:59:59+09:00',
+      '2026-04-15T00:00:00+09:00',
+      '2026-07-02T23:59:59+09:00',
+      '2026-07-03T00:00:00+09:00',
+      '2026-07-05T23:59:59+09:00',
+      '2026-07-06T00:00:00+09:00',
+      '2026-07-20T23:59:59+09:00',
     ),
     location: { sido: '서울', sigungu: '강남구' },
     address: '서울특별시 강남구 영동대로 513',
@@ -210,8 +197,6 @@ export const mockCampaigns: Campaign[] = [
     currentRecruitment: 18,
     selectedCount: 0,
   },
-
-  // Completed 체험 (10개) - 신정 후 리뷰까지 완료
   {
     id: '6',
     title: '유기농 화장품 체험단',
@@ -559,10 +544,408 @@ export const mockCampaigns: Campaign[] = [
   },
 ];
 
-/**
- * 🚨🚨🚨 /api/campaigns/:id로 변경해주세요 🚨🚨🚨
- * ~~Campaign ID로 찾기~~
- */
 export function findCampaignById(id: string): Campaign | undefined {
   return mockCampaigns.find((campaign) => campaign.id === id);
 }
+
+const defaultBusinessHours: VisitReservation['businessHours'] = [
+  { start: '09:00', end: '21:00' },
+  { start: '09:00', end: '21:00' },
+  { start: '09:00', end: '21:00' },
+  { start: '09:00', end: '21:00' },
+  { start: '09:00', end: '21:00' },
+  { start: '09:00', end: '21:00' },
+  { start: '09:00', end: '21:00' },
+];
+
+function requireCampaign(id: string) {
+  const campaign = findCampaignById(id);
+  if (!campaign) throw new Error(`ID가 ${id}인 체험을 찾을 수 없습니다.`);
+  return campaign;
+}
+
+export const mockCampaignDetails: CampaignDetail[] = [
+  {
+    ...requireCampaign('1'),
+    estimatedValue: 50000,
+    keywords: ['커피', '프리미엄', '매장체험'],
+    visitReservation: {
+      businessHours: [
+        { start: '07:00', end: '22:00' },
+        { start: '07:00', end: '22:00' },
+        { start: '07:00', end: '22:00' },
+        { start: '07:00', end: '22:00' },
+        { start: '07:00', end: '22:00' },
+        { start: '07:00', end: '23:00' },
+        { start: '07:00', end: '23:00' },
+      ],
+      isReservationRequired: true,
+      reservationMethod: '스타벅스 앱 사전 예약',
+      visitReservationNotice: '체험 당일 매장 방문 전 10분 전에 알림톡 확인 필수',
+    },
+    reviewMission: [
+      '사진: 매장 내 자연광이 잘 드는 창가 자리에서 촬영한 음료 및 푸드 연출컷 5장 이상.',
+      '영상: 음료를 마시는 자연스러운 모습이나, 파트너가 음료를 제조하는 모습을 담은 15초 이상의 릴스/숏츠용 세로 영상 1편.',
+      '내용: 800자 이상 작성 & 신메뉴의 첫맛과 끝맛, 어울리는 디저트 조합에 대해 상세히 기술해주세요.',
+      '별점: 네이버 마이플레이스 영수증 리뷰 작성 시 별점 5점 만점 필수입니다.',
+    ],
+    reviewMissionNotice:
+      '리뷰는 선정 후 3일 이내 업로드해야 하며, 6개월간 전체공개로 유지해야 합니다.',
+    requirements: [
+      '블로그 일 방문자 1,000명 이상 또는 인스타그램 팔로워 3k 이상인 커피 러버',
+      '평일 점심 피크타임(12:00~13:00)을 피해 여유롭게 방문하여 촬영 가능하신 분',
+    ],
+    precautions: [
+      '타인에게 양도 및 재판매 절대 불가합니다.',
+      '매장 내 다른 고객의 얼굴이 노출되지 않도록 모자이크 처리 부탁드립니다.',
+    ],
+  },
+  {
+    ...requireCampaign('2'),
+    estimatedValue: 120000,
+    keywords: ['설화수', '스킨케어', '뷰티'],
+    visitReservation: {
+      businessHours: [
+        { start: '10:30', end: '20:30' },
+        { start: '10:30', end: '20:00' },
+        { start: '10:30', end: '20:00' },
+        { start: '10:30', end: '20:00' },
+        { start: '10:30', end: '20:00' },
+        { start: '10:30', end: '20:30' },
+        { start: '10:30', end: '20:30' },
+      ],
+      isReservationRequired: true,
+      reservationMethod: '설화수 플래그십 스토어 방문 예약',
+      visitReservationNotice: '체험 전 피부 진단 서비스가 포함되어 있습니다.',
+    },
+    reviewMission: [
+      '사진: 제품 패키지 언박싱 컷 3장, 제형 클로즈업 컷 2장, 얼굴에 도포하는 과정 컷 3장 이상.',
+      '내용: 1,000자 이상 & 7일간 사용 후 피부결, 톤, 탄력의 변화를 사용 전/3일차/7일차로 나누어 기록해주세요.',
+    ],
+    reviewMissionNotice:
+      '제품 수령 후 5일 이내 개봉기(1차), 14일 후 한달 사용기(2차) 총 2회 포스팅 필수.',
+    requirements: [
+      '3040 여성 타겟 뷰티 블로거 (일 방문자 2,000명 이상) 또는 인스타그래머 (팔로워 10k 이상)',
+    ],
+    precautions: ['타사 브랜드 제품과 직접적인 비교(비방)는 절대 금지합니다.'],
+  },
+  {
+    ...requireCampaign('3'),
+    estimatedValue: 180000,
+    keywords: ['이어폰', '삼성전자', '노이즈캔슬링'],
+    visitReservation: {
+      businessHours: defaultBusinessHours,
+      isReservationRequired: true,
+      visitReservationNotice: '삼성 디지털프라자 홍대점 방문 수령',
+    },
+    reviewMission: [
+      '사진: 제품 구성품 전체 샷, 이어버드 착용 샷, 충전 케이스 디테일 샷 등 총 10장 이상.',
+      '내용: 블로그 기준 사진 15장 이상, 글자수 1,500자 이상. 노이즈 캔슬링 성능, 통화 품질, 착용감을 중점적으로 다뤄주세요.',
+    ],
+    reviewMissionNotice: '제품 수령 후 3일 이내 개봉기, 1주일 사용 후 상세 리뷰 총 2건 업로드.',
+    requirements: ['갤럭시 S23 시리즈 이상 사용자 필수', 'IT/테크 전문 블로거 또는 유튜버'],
+    precautions: ['제품 분해 및 임의 개조 절대 금지.'],
+  },
+  {
+    ...requireCampaign('4'),
+    estimatedValue: 80000,
+    keywords: ['건강식품', '비타민', '종근당'],
+    visitReservation: {
+      businessHours: [
+        { start: '10:00', end: '19:00' },
+        'closed',
+        { start: '10:00', end: '19:00' },
+        { start: '10:00', end: '19:00' },
+        { start: '10:00', end: '19:00' },
+        { start: '10:00', end: '20:00' },
+        { start: '10:00', end: '20:00' },
+      ],
+      isReservationRequired: true,
+      visitReservationNotice: '종근당 건강 팝업스토어(성수) 방문 수령',
+    },
+    reviewMission: [
+      '사진: 제품 패키지, 알약 크기 비교 샷, 섭취하는 자연스러운 모습 등 7장 이상.',
+      '내용: 1,000자 이상. 솔직하고 담백한 후기, 섭취 편의성에 대해 자세히 적어주세요.',
+    ],
+    reviewMissionNotice: '제품 수령 후 1주일간 섭취 후, 신체 변화를 중심으로 후기를 남겨주세요.',
+    requirements: ['건강기능식품을 꾸준히 섭취하며 몸의 변화를 기록하는 것을 좋아하시는 분'],
+    precautions: [
+      '과대 광고로 오인될 수 있는 표현은 식약처 가이드라인 위반이므로 절대 사용 금지.',
+    ],
+  },
+  {
+    ...requireCampaign('5'),
+    estimatedValue: 450000,
+    keywords: ['스마트워치', '애플', '헬스케어'],
+    visitReservation: {
+      businessHours: [
+        { start: '11:00', end: '22:00' },
+        { start: '11:00', end: '22:00' },
+        { start: '11:00', end: '22:00' },
+        { start: '11:00', end: '22:00' },
+        { start: '11:00', end: '22:00' },
+        { start: '11:00', end: '22:30' },
+        { start: '11:00', end: '22:30' },
+      ],
+      isReservationRequired: true,
+      reservationMethod: '애플 가로수길 지니어스바 예약',
+      visitReservationNotice: '제품 수령 및 초기 세팅 지원',
+    },
+    reviewMission: [
+      '사진: 애플워치 착용 손목 컷, 운동 중 활동 링 화면 컷, 수면 데이터 분석 화면 캡처 등 10장 이상.',
+      '내용: 아이폰과의 연동성, 알림 기능, 운동 동기 부여 효과를 중심으로 작성해주세요.',
+    ],
+    reviewMissionNotice:
+      '제품 수령 후 3일 이내 개봉기, 2주 사용 후 헬스케어 기능 활용기 총 2건 업로드.',
+    requirements: ['아이폰 13 이상 사용자 필수', '러닝, 크로스핏, 요가 등 주 3회 이상 운동'],
+    precautions: ['체험 기기 파손 및 분실 시 출고가 전액 배상.'],
+  },
+  {
+    ...requireCampaign('6'),
+    estimatedValue: 90000,
+    keywords: ['이니스프리', '유기농', '스킨케어'],
+    visitReservation: {
+      businessHours: [
+        { start: '11:00', end: '20:00' },
+        'closed',
+        'closed',
+        'closed',
+        'closed',
+        'closed',
+        { start: '11:00', end: '20:00' },
+      ],
+      isReservationRequired: true,
+      visitReservationNotice: '이니스프리 제주 하우스 방문 체험',
+    },
+    reviewMission: [
+      '사진: 제주 하우스 녹차밭 배경 인증샷, 매장 내 제품 테스트 샷, 카페 메뉴 시식 샷 등 15장 이상.',
+      '내용: 이니스프리가 추구하는 Clean Beauty 철학이 잘 드러나도록 작성해주세요.',
+    ],
+    reviewMissionNotice: '제주 하우스 방문 후 3일 이내에 방문 후기를 업로드해야 합니다.',
+    requirements: ['12월 중 제주도 여행 계획이 확정되신 분', '자연광 감성 사진 촬영에 능숙한 분'],
+    precautions: ['매장 방문 시 사전 예약된 시간에 늦지 않게 도착해주세요.'],
+  },
+  {
+    ...requireCampaign('7'),
+    estimatedValue: 60000,
+    keywords: ['프리미엄쌀', '건강식', 'CJ제일제당'],
+    visitReservation: {
+      businessHours: [
+        { start: '10:00', end: '19:00' },
+        'closed',
+        { start: '10:00', end: '19:00' },
+        { start: '10:00', end: '19:00' },
+        { start: '10:00', end: '19:00' },
+        { start: '10:00', end: '20:00' },
+        { start: '10:00', end: '20:00' },
+      ],
+      isReservationRequired: true,
+      reservationMethod: 'CJ 더키친 쿠킹 클래스 예약',
+      visitReservationNotice: '쿠킹 클래스 참여 후 제품 수령',
+    },
+    reviewMission: [
+      '사진: 쿠킹 클래스 진행 모습, 완성된 요리의 플레이팅 샷(항공샷 필수) 등 10장 이상.',
+      '내용: 쉐프님에게 배운 꿀팁을 3가지 이상 정리해주세요.',
+    ],
+    reviewMissionNotice: '쿠킹 클래스 참여 후 3일 이내에 생생한 후기를 업로드해주세요.',
+    requirements: ['요리에 관심은 많지만 실력은 초보인 요린이 환영', '집밥을 즐겨 먹는 분'],
+    precautions: ['칼과 불을 사용하는 수업이므로 안전 사고에 각별히 유의해주세요.'],
+  },
+  {
+    ...requireCampaign('8'),
+    estimatedValue: 250000,
+    keywords: ['운동화', '나이키', '러닝'],
+    visitReservation: {
+      businessHours: defaultBusinessHours,
+      isReservationRequired: true,
+      visitReservationNotice: '나이키 강남 플래그십 스토어 방문 수령',
+    },
+    reviewMission: [
+      '사진: 착용하고 러닝하는 역동적인 모습, 쿠셔닝 디테일 샷, 러닝 후 땀 흘린 인증샷 등 7장 이상.',
+      '내용: 5km 이상 러닝 후 느낀 착화감(발목 지지력, 통기성, 무게감)을 상세히 적어주세요.',
+    ],
+    reviewMissionNotice: '제품 수령 후 1주일 이내에 러닝 인증샷과 함께 후기를 업로드해주세요.',
+    requirements: ['주 2회 이상, 1회 5km 이상 러닝을 즐기는 진성 러너'],
+    precautions: ['야외 착용 후 밑창 오염이나 주름이 심하면 교환/반품이 절대 불가합니다.'],
+  },
+  {
+    ...requireCampaign('9'),
+    estimatedValue: 600000,
+    keywords: ['스마트홈', 'LG전자', '체험존'],
+    visitReservation: {
+      businessHours: [
+        { start: '10:00', end: '19:00' },
+        { start: '10:00', end: '19:00' },
+        { start: '10:00', end: '19:00' },
+        { start: '10:00', end: '19:00' },
+        { start: '10:00', end: '20:00' },
+        { start: '10:00', end: '20:00' },
+        { start: '10:00', end: '18:00' },
+      ],
+      isReservationRequired: true,
+      reservationMethod: 'LG 스마트홈 체험존 온라인 예약 폼',
+      visitReservationNotice: '예약 시간 15분 초과 시 체험이 취소될 수 있습니다.',
+    },
+    reviewMission: [
+      '사진: 체험존 배경 인생샷, ThinQ 앱으로 가전 제어하는 모습, 오브제 컬렉션 감성 사진 등 15장 이상.',
+      '내용: 신혼부부나 이사를 앞둔 분들에게 추천하는 멘트를 꼭 넣어주세요.',
+    ],
+    reviewMissionNotice: '체험존 방문 후 3일 이내에 방문 후기를 업로드해야 합니다.',
+    requirements: ['결혼을 앞둔 예비 신혼부부 또는 입주를 앞둔 분', '인테리어/리빙 분야 인플루언서'],
+    precautions: ['체험존 내 고가의 가전제품 파손에 각별히 주의해주세요.'],
+  },
+  {
+    ...requireCampaign('10'),
+    estimatedValue: 40000,
+    keywords: ['요거트', '건강간식', '빙그레'],
+    visitReservation: {
+      businessHours: [
+        { start: '07:00', end: '22:00' },
+        { start: '07:00', end: '22:00' },
+        { start: '07:00', end: '22:00' },
+        { start: '07:00', end: '22:00' },
+        { start: '07:00', end: '22:00' },
+        { start: '07:00', end: '23:00' },
+        { start: '07:00', end: '23:00' },
+      ],
+      isReservationRequired: true,
+      visitReservationNotice: '빙그레 팝업 카페 방문 시식 및 수령',
+    },
+    reviewMission: [
+      '사진: 팝업 카페 포토존 인증샷, 요거트와 토핑이 예쁘게 담긴 플레이팅 샷 등 10장 이상.',
+      '내용: 요거트의 꾸덕한 질감과 상큼달콤한 맛을 생생하게 표현해주세요.',
+    ],
+    reviewMissionNotice: '팝업 카페 방문 후 3일 이내에 방문 후기를 업로드해주세요.',
+    requirements: ['4세~10세 자녀를 둔 육아맘/육아대디', '예쁜 카페 찾아다니기를 좋아하는 분'],
+    precautions: ['우유 알레르기가 있는 경우 섭취에 주의해주시고, 사전에 직원에게 문의해주세요.'],
+  },
+  {
+    ...requireCampaign('11'),
+    estimatedValue: 70000,
+    keywords: ['샴푸', '헤어케어', '아모레'],
+    visitReservation: {
+      businessHours: [
+        { start: '10:00', end: '19:00' },
+        'closed',
+        { start: '10:00', end: '19:00' },
+        { start: '10:00', end: '19:00' },
+        { start: '10:00', end: '19:00' },
+        { start: '10:00', end: '20:00' },
+        { start: '10:00', end: '20:00' },
+      ],
+      isReservationRequired: true,
+      reservationMethod: '아모레 성수 예약',
+      visitReservationNotice: '두피 진단 후 맞춤 샴푸 증정',
+    },
+    reviewMission: [
+      '사진: 두피 진단 기기로 촬영한 두피 상태(Before/After) 사진 필수, 샴푸 거품 컷, 머릿결 인증샷.',
+      '내용: 전문가에게 들은 두피 타입과 샴푸 처방 내용을 자세히 적어주세요.',
+    ],
+    reviewMissionNotice: '두피 진단 서비스 체험 후 3일 이내에 후기를 업로드해야 합니다.',
+    requirements: ['평소 정수리 냄새, 비듬, 가려움증 등으로 고민이 많으신 분'],
+    precautions: ['두피 진단 서비스는 100% 예약제로 운영됩니다.'],
+  },
+  {
+    ...requireCampaign('12'),
+    estimatedValue: 650000,
+    keywords: ['무선청소기', '다이슨', '프리미엄가전'],
+    visitReservation: {
+      businessHours: [
+        { start: '10:30', end: '20:30' },
+        { start: '10:30', end: '20:00' },
+        { start: '10:30', end: '20:00' },
+        { start: '10:30', end: '20:00' },
+        { start: '10:30', end: '20:00' },
+        { start: '10:30', end: '20:30' },
+        { start: '10:30', end: '20:30' },
+      ],
+      isReservationRequired: true,
+      reservationMethod: '다이슨 데모 스토어 IFC몰 예약',
+      visitReservationNotice: '제품 시연 및 사용법 교육 포함',
+    },
+    reviewMission: [
+      '사진: 레이저 슬림 플러피 헤드가 먼지 비추는 모습, 침구 청소 모습, 먼지통 비우는 모습 등.',
+      '내용: 무게 중심, 배터리 타임 등 실사용자 입장에서 궁금해할 내용을 다뤄주세요.',
+    ],
+    reviewMissionNotice:
+      '제품 수령 후 3일 이내 개봉기, 1주일 사용 후 청소 성능 테스트 영상 포함 후기 업로드.',
+    requirements: ['반려동물 털 날림으로 고생하시는 분', '기존 타사 무선청소기 사용자 우대'],
+    precautions: ['필터는 물세척 후 24시간 이상 그늘에서 바짝 말려서 사용해야 합니다.'],
+  },
+  {
+    ...requireCampaign('13'),
+    estimatedValue: 50000,
+    keywords: ['초콜릿', '디저트', '페레로로쉐'],
+    visitReservation: {
+      businessHours: [
+        { start: '10:30', end: '20:30' },
+        { start: '10:30', end: '20:00' },
+        { start: '10:30', end: '20:00' },
+        { start: '10:30', end: '20:00' },
+        { start: '10:30', end: '20:00' },
+        { start: '10:30', end: '20:30' },
+        { start: '10:30', end: '20:30' },
+      ],
+      isReservationRequired: true,
+      visitReservationNotice: '백화점 식품관 팝업 스토어 방문 수령',
+    },
+    reviewMission: [
+      '사진: 금색 포장지 탑 샷, 초콜릿 단면 샷, 와인이나 에스프레소와 페어링 샷 등.',
+      '내용: 발렌타인데이 선물로 좋다는 점과 입안에서 녹는 초콜릿과 바삭한 웨하스의 식감 조화를 묘사해주세요.',
+    ],
+    reviewMissionNotice: '제품 수령 후 3일 이내에 선물 추천 컨셉의 후기를 업로드해주세요.',
+    requirements: ['디저트 플레이팅에 진심인 홈카페족', '기념일 선물을 고민 중인 2030 커플'],
+    precautions: ['견과류(헤이즐넛) 및 우유, 대두 알레르기가 있으신 분은 섭취를 삼가주세요.'],
+  },
+  {
+    ...requireCampaign('14'),
+    estimatedValue: 180000,
+    keywords: ['향수', '조말론', '플래그십스토어'],
+    visitReservation: {
+      businessHours: [
+        { start: '11:00', end: '22:00' },
+        { start: '11:00', end: '22:00' },
+        { start: '11:00', end: '22:00' },
+        { start: '11:00', end: '22:00' },
+        { start: '11:00', end: '22:00' },
+        { start: '11:00', end: '22:30' },
+        { start: '11:00', end: '22:30' },
+      ],
+      isReservationRequired: true,
+      reservationMethod: '조말론 청담 플래그십 스토어 전화 예약',
+      visitReservationNotice: '예약 변경은 최소 1일 전까지 가능',
+    },
+    reviewMission: [
+      '사진: 시그니처 크림색 박스와 블랙 리본이 돋보이는 언박싱 샷, 향수병 오브제 샷, 손목에 분사하는 감성 컷.',
+      '내용: 향의 탑, 미들, 베이스 노트를 각각 설명하고, 시간이 지날수록 변하는 잔향을 시적으로 묘사해주세요.',
+    ],
+    reviewMissionNotice: '매장 방문 및 시향 후 3일 이내에 후기를 업로드해야 합니다.',
+    requirements: ['향수 수집이 취미인 향덕', '니치 향수 브랜드에 대한 이해도가 높은 분'],
+    precautions: ['흰 옷이나 실크, 가죽, 모피 소재에는 얼룩이 남을 수 있으니 직접 분사하지 마세요.'],
+  },
+  {
+    ...requireCampaign('15'),
+    estimatedValue: 30000,
+    keywords: ['스마트폰케이스', '카카오프렌즈', '굿즈'],
+    visitReservation: {
+      businessHours: [
+        { start: '11:00', end: '22:00' },
+        { start: '11:00', end: '22:00' },
+        { start: '11:00', end: '22:00' },
+        { start: '11:00', end: '22:00' },
+        { start: '11:00', end: '22:00' },
+        { start: '11:00', end: '22:30' },
+        { start: '11:00', end: '22:30' },
+      ],
+      isReservationRequired: true,
+      visitReservationNotice: '카카오프렌즈 강남 플래그십 스토어 방문 수령',
+    },
+    reviewMission: [
+      '사진: 거울 셀카로 케이스가 돋보이는 OOTD 샷 3장, 케이스 디테일 마감 샷 2장.',
+      '내용: 예쁘기만 한 게 아니라 보호력도 좋고 그립감도 편안하다는 점을 강조해주세요.',
+    ],
+    reviewMissionNotice: '제품 수령 후 3일 이내에 착용샷을 포함한 후기를 업로드해주세요.',
+    requirements: ['카카오프렌즈 캐릭터에 진심인 춘장님들 환영', '거울 셀카 장인, 폰꾸 고수'],
+    precautions: ['본인 기종을 정확히 확인 후 신청해주세요. 기종 오주문 시 교환/환불 절대 불가.'],
+  },
+];

@@ -77,7 +77,7 @@ export const reservationHandlers = [
 ];
 ```
 
-## 4. 핸들러 등록 (`mocks/handlers.ts`)
+## 4. 핸들러 등록 (`shared/api/mock/handlers.ts`)
 
 작성한 핸들러를 MSW 메인 핸들러 목록에 추가해야 합니다.
 
@@ -95,4 +95,4 @@ export const handlers = [
 1.  **API 정의**: `api/reserveApi.ts`에 Axios 요청 함수 작성.
 2.  **Hook 생성**: `hooks/useReserve.ts`에 React Query Hook 작성.
 3.  **MSW 설정**: `shared/api/mock/handlers/reservations.ts`에 요청 인터셉트 및 응답 로직 작성.
-4.  **등록**: `mocks/handlers.ts`에 핸들러 등록.
+4.  **등록**: `shared/api/mock/handlers.ts`에 핸들러 등록.

@@ -9,7 +9,7 @@ import type { KakaoUserInfo, NaverUserInfo } from '@shared/types/auth.types';
  */
 export const mockKakaoUsers: KakaoUserInfo[] = [
   {
-    id: 123456789,
+    id: 1001,
     connected_at: '2024-01-01T00:00:00Z',
     properties: {
       nickname: '테스트유저',
@@ -66,10 +66,10 @@ export const mockNaverUsers: NaverUserInfo[] = [
     resultcode: '00',
     message: 'success',
     response: {
-      id: 'naver-123456',
-      nickname: '네이버유저',
-      name: '홍길동',
-      email: 'test@naver.com',
+      id: '2001',
+      nickname: '한소라',
+      name: '한소라',
+      email: 'han.sora@naver.com',
       gender: 'M',
       age: '30-39',
       birthday: '01-01',

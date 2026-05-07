@@ -23,8 +23,7 @@
       "@app/*": ["./src/app/*"],
       "@features/*": ["./src/features/*"],
       "@entities/*": ["./src/entities/*"],
-      "@shared/*": ["./src/shared/*"],
-      "@mocks/*": ["./src/mocks/*"]
+      "@shared/*": ["./src/shared/*"]
     }
   },
   "include": [

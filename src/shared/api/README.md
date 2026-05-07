@@ -10,9 +10,11 @@ API 호출을 위한 **HTTP 클라이언트 설정**과 **Mock API**를 관리�
 api/
 ├── client.ts          # axios 인스턴스 설정
 ├── mock/
-│   ├── browser.ts     # MSW 브라우저 설정
-│   ├── handlers.ts    # Mock API 핸들러
-│   └── data.ts        # Mock 데이터
+│   ├── browser.ts     # MSW 브라우저 설정 (worker)
+│   ├── handlers.ts    # Mock API 핸들러 통합
+│   ├── handlers/      # 도메인별 핸들러
+│   ├── data/          # Mock 데이터
+│   └── utils/         # Mock 유틸리티
 └── README.md
 ```
 
@@ -66,10 +68,10 @@ function useReviews() {
 
 ### Mock API 활성화
 
-`src/app/layout.tsx` 또는 `src/app/providers.tsx`에서 활성화:
+`src/app/providers/Providers.tsx`에서 활성화:
 
 ```typescript
-if (process.env.NODE_ENV === 'development') {
+if (env.useMock) {
   const { worker } = await import('@shared/api/mock/browser');
   worker.start();
 }
@@ -78,7 +80,7 @@ if (process.env.NODE_ENV === 'development') {
 ### Mock 핸들러 추가
 
 ```typescript
-// shared/api/mock/handlers.ts
+// shared/api/mock/handlers/reviews.ts (예시)
 import { http, HttpResponse } from 'msw';
 
 export const handlers = [

@@ -1,8 +1,9 @@
 import { UserCampaigns } from '@entities/user/types/user.types';
 import { mockApplications } from './applications';
+import { mockUsers } from './users';
 
-export const getUserCampaigns = (): UserCampaigns => {
-  const userId = 'kakao-1001';
+export const getUserCampaigns = (userId: string): UserCampaigns => {
+  const user = mockUsers.find((u) => u.id === userId);
   const myApplications = mockApplications.filter((app) => app.userId === userId);
 
   // 1. 참여한 캠페인 수
@@ -37,11 +38,11 @@ export const getUserCampaigns = (): UserCampaigns => {
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return {
-    name: '김철수',
+    name: user?.name ?? '알 수 없음',
     participatedCampaigns,
     enrolledReviews,
     campaigns,
   };
 };
 
-export const mockUserCampaigns: UserCampaigns = getUserCampaigns();
+export const mockUserCampaigns: UserCampaigns = getUserCampaigns('kakao-1001');
