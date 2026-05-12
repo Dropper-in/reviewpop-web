@@ -1,4 +1,4 @@
-import { apiClient } from '@shared/api/client';
+import { apiClient, publicApiClient } from '@shared/api/client';
 
 import { User, UserCampaigns } from '../types/user.types';
 import { ApiResponse, unwrapApiResponse } from '@shared/api/types/common.types';
@@ -27,7 +27,11 @@ export async function updateUserInfo(payload: UpdateUserPayload) {
 /**
  * 유저 정보 조회
  */
-export async function getUserInfo() {
-  const response = await apiClient.get<ApiResponse<User>>('/auth/me');
-  return unwrapApiResponse(response.data);
+export async function getUserInfo(): Promise<User | null> {
+  try {
+    const response = await publicApiClient.get<ApiResponse<User>>('/auth/me');
+    return unwrapApiResponse(response.data);
+  } catch {
+    return null;
+  }
 }
