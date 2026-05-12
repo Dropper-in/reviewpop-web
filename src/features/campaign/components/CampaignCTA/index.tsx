@@ -30,7 +30,7 @@ type Cta =
   | 'CancelReservation'
   | 'ChangeReservation';
 
-export default function CampaignCTA({
+export function CampaignCTA({
   campaign,
   isAuthenticated,
 }: {
@@ -38,7 +38,7 @@ export default function CampaignCTA({
   isAuthenticated: boolean;
 }) {
   const router = useRouter();
-  const { data: user } = useUserInfo();
+  const { data: user, isLoading: isUserLoading } = useUserInfo();
   const { data: application } = useApplicationDetails(campaign.id, user?.id || '', {
     enabled: isAuthenticated && !!user?.id,
   });
@@ -50,7 +50,7 @@ export default function CampaignCTA({
 
   const { mutateAsync: deleteMyCampaign } = useDeleteMyCampaign();
 
-  if (!isAuthenticated) return null;
+  if (!isAuthenticated || isUserLoading || !user) return null;
 
   const getCtaStatus = (): Cta => {
     // 1. Application-specific Logic
