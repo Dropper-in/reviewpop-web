@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { CONSTANTS } from '@shared/config/constants';
 import { ROUTES } from '@shared/config/routes';
 import { Button } from '@shared/components';
+import { env } from '@shared/config/env';
 import { toUnix, toUTCString, now } from '@shared/lib/date';
 
 import { generateState } from './utils';
@@ -40,7 +41,7 @@ export function OAuthLoginButton({ label, icon, config, className }: OAuthLoginB
     const expires = toUTCString(now().add(10, 'minute'));
     document.cookie = `${CONSTANTS.STORAGE_KEYS.OAUTH_STATE}=${encodeURIComponent(JSON.stringify(stateData))}; path=/; expires=${expires}; SameSite=Lax`;
 
-    if (process.env.NODE_ENV === 'development') {
+    if (env.useMock) {
       const mockCode = `${config.mockCodePrefix}-${toUnix()}`;
       const callbackUrl = new URL(config.callbackRoute, window.location.origin);
       callbackUrl.searchParams.set('code', mockCode);
