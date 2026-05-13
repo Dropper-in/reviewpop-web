@@ -5,7 +5,7 @@ import { Campaign } from '@entities/campaign/types/campaign.types';
 import styles from './style.module.scss';
 import { diff } from '@shared/lib/date';
 
-export default function StatusBadge({ campaign }: { campaign: Campaign }) {
+export function StatusBadge({ campaign }: { campaign: Campaign }) {
   const isCompleted = campaign.status === 'completed' || campaign.status === 'closed';
   const now = dayjs();
   const reviewEnd = dayjs(campaign.schedule.review.end);

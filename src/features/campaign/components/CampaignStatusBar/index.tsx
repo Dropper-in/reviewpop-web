@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import { diff, now } from '@shared/lib/date';
 
 import type { Campaign } from '@entities/campaign/types/campaign.types';
-import StatusBadge from '@features/campaign/components/StatusBadge';
+import { StatusBadge } from '@features/campaign/components/StatusBadge';
 
 import styles from './style.module.scss';
 
