@@ -69,7 +69,8 @@ export function Providers({ children }: ProvidersProps) {
         try {
           const { worker } = await import('@shared/api/mock/browser');
           await worker.start({
-            onUnhandledRequest: 'bypass', // 처리되지 않은 요청은 실제 API로 전달
+            onUnhandledRequest: 'bypass',
+            quiet: true,
           });
           console.log('🎭 MSW (Mock Service Worker) 활성화됨');
           setIsMswReady(true);

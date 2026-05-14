@@ -1,4 +1,8 @@
-import { CampaignDetail, CAMPAIGN_CATEGORIES, CAMPAIGN_STATUSES } from '@entities/campaign/types/campaign.types';
+import {
+  CampaignDetail,
+  CAMPAIGN_CATEGORIES,
+  CAMPAIGN_STATUSES,
+} from '@entities/campaign/types/campaign.types';
 import {
   getRandomBoolean,
   getRandomElement,
@@ -100,7 +104,7 @@ const createRandomCampaign = (index: number): CampaignDetail => {
       },
     },
     location,
-    address: `${location.sido} ${location.sigungu} 상세주소 123`,
+    address: `${location.sido} ${location.sigungu} 상세주소 123-45`,
     maxRecruitment: getRandomInt(5, 20),
     currentRecruitment: getRandomInt(0, 50),
     selectedCount: status === 'recruiting' ? 0 : getRandomInt(5, 20),
