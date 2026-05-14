@@ -77,6 +77,8 @@ export default function CampaignImagesPage({ params }: CampaignImagesPageProps) 
                 className={styles.GalleryImage}
                 sizes="(max-width: 768px) 50vw, 25vw"
                 quality={90}
+                priority={index === 0}
+                loading={index < 4 ? 'eager' : 'lazy'}
               />
             </div>
           ))}
