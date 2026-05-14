@@ -1,4 +1,5 @@
 import { useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 import { Modal, toast } from '@shared/components';
 import { ROUTES } from '@shared/config/routes';
@@ -9,6 +10,7 @@ import styles from './style.module.scss';
 
 export function Settings() {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const handleLogout = async () => {
     try {
@@ -18,6 +20,7 @@ export function Settings() {
       });
       queryClient.removeQueries({ queryKey: ['user'] });
       toast.success('로그아웃 되었습니다.');
+      router.push(ROUTES.HOME);
     } catch (error) {
       toast.error('로그아웃을 실패하였습니다.');
     }
