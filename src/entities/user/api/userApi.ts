@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { apiClient, publicApiClient } from '@shared/api/client';
 
 import { User, UserCampaigns } from '../types/user.types';
@@ -31,7 +33,10 @@ export async function getUserInfo(): Promise<User | null> {
   try {
     const response = await publicApiClient.get<ApiResponse<User>>('/auth/me');
     return unwrapApiResponse(response.data);
-  } catch {
-    return null;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      return null;
+    }
+    throw error;
   }
 }

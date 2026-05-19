@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useDisclosure } from '@mantine/hooks';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { TextArea } from '@features/apply/components/TextArea';
 import { ButtonBar } from '@features/apply/components/ButtonBar';
 import { useInputValidate } from '@entities/campaign/hooks/useInputValidate';
 import { BlogBottomSheet } from '@features/apply/components/BlogBottomSheet';
-import { useUserInfo } from '@entities/user/hooks/useUserInfo';
+import { getUserInfo } from '@entities/user/api/userApi';
 import { CautionBottomSheet } from '@features/apply/components/CautionBottomSheet';
 
 import { LabeledInput } from '../LabeledInput';
@@ -17,7 +18,11 @@ import { FormProps } from './types';
 import styles from './style.module.scss';
 
 export function Form({ onClick, showTextArea = true, buttonText = '확인' }: FormProps) {
-  const { data: user } = useUserInfo();
+  const { data: user } = useSuspenseQuery({
+    queryKey: ['user'],
+    queryFn: getUserInfo,
+    retry: false,
+  });
   const nameInput = useInputValidate('name', user?.name ?? '');
   const phoneInput = useInputValidate('phone', user?.phoneNumber ?? '');
 
@@ -27,7 +32,7 @@ export function Form({ onClick, showTextArea = true, buttonText = '확인' }: Fo
 
   const [text, setText] = useState<string>('');
 
-  const [isConnected, setIsConnected] = useState<boolean>(user?.blogAddress ? true : false);
+  const [isConnected, setIsConnected] = useState<boolean>(!!user?.blogAddress);
 
   const formData = {
     name: nameInput.value,

@@ -13,7 +13,7 @@ export default async function CampaignDetailPage({ params }: PageProps) {
   const { campaignId } = await params;
   const cookieStore = await cookies();
   const token = cookieStore.get(CONSTANTS.COOKIE_KEYS.AUTH_TOKEN)?.value;
-  const isAuthenticated = !!verifyJWT(token ?? '');
+  const decoded = token ? verifyJWT(token) : null;
 
-  return <CampaignDetailClient campaignId={campaignId} isAuthenticated={isAuthenticated} />;
+  return <CampaignDetailClient campaignId={campaignId} userId={decoded?.userId ?? null} />;
 }

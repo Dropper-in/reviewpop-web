@@ -1,4 +1,5 @@
 'use client';
+import { Suspense } from 'react';
 import { Form } from '@shared/components/Form';
 import { useCampaignDetails } from '@features/history';
 import { usePageHeader } from '@shared/hooks/usePageHeader';
@@ -21,7 +22,9 @@ export function ApplyForm({ campaignId }: ApplyFormProps) {
         brand={campaign?.brand ?? ''}
         providedItems={campaign?.providedItem ?? ''}
       />
-      <Form buttonText="다음" />
+      <Suspense>
+        <Form buttonText="다음" />
+      </Suspense>
     </div>
   );
 }

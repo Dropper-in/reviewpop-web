@@ -22,25 +22,23 @@ import {
 } from '@features/campaign';
 import { useCampaignDetails } from '@entities/campaign';
 import { useApplicationDetails } from '@entities/application';
-import { useUserInfo } from '@entities/user';
 import { usePageHeader } from '@shared/hooks/usePageHeader';
 
 import styles from './page.module.scss';
 
 interface CampaignDetailClientProps {
   campaignId: string;
-  isAuthenticated: boolean;
+  userId: string | null;
 }
 
 export default function CampaignDetailClient({
   campaignId,
-  isAuthenticated,
+  userId,
 }: CampaignDetailClientProps) {
   const router = useRouter();
   const { data: campaign, isLoading, error } = useCampaignDetails(campaignId);
-  const { data: user } = useUserInfo();
-  const { data: application } = useApplicationDetails(campaignId, user?.id ?? '', {
-    enabled: !!user?.id,
+  const { data: application } = useApplicationDetails(campaignId, userId ?? '', {
+    enabled: !!userId,
   });
   const [viewerIndex, setViewerIndex] = useState<number | null>(null);
 
@@ -125,7 +123,7 @@ export default function CampaignDetailClient({
         isSelectedWithoutReservation ? styles['Page--reservation-pending'] : ''
       }`}
     >
-      <CampaignCTA campaign={campaign} isAuthenticated={isAuthenticated} />
+      <CampaignCTA campaign={campaign} userId={userId} />
       <div className={styles.Page__ImageSection}>
         <ImageGallery
           images={images}
