@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 import { CONSTANTS } from '@shared/config/constants';
 import { ROUTES } from '@shared/config/routes';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const authToken = request.cookies.get(CONSTANTS.COOKIE_KEYS.AUTH_TOKEN);
 
   // 보호된 경로에 접근하면서 인증 토큰이 없는 경우 로그인 페이지로 이동
