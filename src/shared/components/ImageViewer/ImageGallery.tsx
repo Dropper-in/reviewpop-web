@@ -87,7 +87,7 @@ export function ImageGallery({
                   sizes="(max-width: 768px) 50vw, 25vw"
                   quality={75}
                   priority={index === 0}
-                  loading="eager"
+                  loading={index === 0 ? 'eager' : 'lazy'}
                 />
                 {showViewAllButton && (
                   <button
