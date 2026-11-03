@@ -1,8 +1,8 @@
 'use client';
-import { Suspense } from 'react';
 import { Form } from '@shared/components/Form';
 import { useCampaignDetails } from '@features/history';
 import { usePageHeader } from '@shared/hooks/usePageHeader';
+import { useUserInfo } from '@entities/user/hooks/useUserInfo';
 
 import { CampaignApplyCard } from '../CampaignApplyCard';
 
@@ -10,6 +10,7 @@ import { ApplyFormProps } from './types';
 
 export function ApplyForm({ campaignId }: ApplyFormProps) {
   const { data: campaign } = useCampaignDetails(campaignId);
+  const { data: user, isLoading: isUserLoading } = useUserInfo();
   usePageHeader({
     showBackButton: true,
     title: '체험단 신청',
@@ -22,9 +23,7 @@ export function ApplyForm({ campaignId }: ApplyFormProps) {
         brand={campaign?.brand ?? ''}
         providedItems={campaign?.providedItem ?? ''}
       />
-      <Suspense>
-        <Form buttonText="다음" />
-      </Suspense>
+      {!isUserLoading && <Form user={user} buttonText="다음" />}
     </div>
   );
 }
