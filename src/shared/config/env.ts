@@ -9,7 +9,7 @@
 
 export const env = {
   /** API 기본 URL */
-  apiUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api',
+  apiUrl: process.env.NEXT_PUBLIC_API_URL || '/api',
 
   /** 현재 환경 */
   nodeEnv: process.env.NODE_ENV,

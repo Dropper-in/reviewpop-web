@@ -13,3 +13,6 @@ export type {
   PointReason,
 } from './types/points.types';
 export { POINT_TRANSACTION_TYPE_LABELS, POINT_REASON_LABELS } from './types/points.types';
+
+// Hooks
+export { useUserInfo } from './hooks/useUserInfo';

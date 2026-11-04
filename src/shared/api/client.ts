@@ -66,3 +66,12 @@ apiClient.interceptors.response.use(
     return Promise.reject(error);
   },
 );
+
+// 선택적 인증 엔드포인트용 — 401 시 리다이렉트 없음
+export const publicApiClient = axios.create({
+  baseURL: env.apiUrl,
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});

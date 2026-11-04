@@ -20,3 +20,8 @@ export type { CampaignScheduleSectionProps } from './components/CampaignSchedule
 export type { CampaignVisitReservationProps } from './components/CampaignVisitReservation';
 export type { CampaignAdditionalNoticeProps } from './components/CampaignAdditionalNotice';
 export type { BulletListSectionProps } from './components/BulletListSection';
+
+export { CampaignStatusBar } from './components/CampaignStatusBar';
+export { StatusBadge } from './components/StatusBadge';
+export { CampaignCTA } from './components/CampaignCTA';
+export { ReviewSection } from './components/ReviewSection';

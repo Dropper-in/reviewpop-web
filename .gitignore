@@ -42,3 +42,5 @@ next-env.d.ts
 
 # local agent md
 agent.md
+CLAUDE.md
+/.claude

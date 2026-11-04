@@ -6,7 +6,6 @@ import { Button, Modal, toast } from '@shared/components';
 import { useApplicationDetails } from '@entities/application/hooks/useApplicationDetails';
 import { useDeleteMyCampaign } from '@entities/history/hooks/useMyCampaigns';
 import { CampaignDetail } from '@entities/campaign/types/campaign.types';
-import { useUserInfo } from '@entities/user/hooks/useUserInfo';
 import { useReservationActions } from '@features/history/hooks/useReservationActions';
 import { useReservationStore } from '@features/reserve/store/reservationStore';
 
@@ -30,10 +29,17 @@ type Cta =
   | 'CancelReservation'
   | 'ChangeReservation';
 
-export default function CampaignCTA({ campaign }: { campaign: CampaignDetail }) {
+export function CampaignCTA({
+  campaign,
+  userId,
+}: {
+  campaign: CampaignDetail;
+  userId: string | null;
+}) {
   const router = useRouter();
-  const { data: user } = useUserInfo();
-  const { data: application } = useApplicationDetails(campaign.id, user?.id || '');
+  const { data: application } = useApplicationDetails(campaign.id, userId ?? '', {
+    enabled: !!userId,
+  });
 
   const { handleChangeDate, handleCancelReservation } = useReservationActions(
     campaign.id,
@@ -42,7 +48,7 @@ export default function CampaignCTA({ campaign }: { campaign: CampaignDetail }) 
 
   const { mutateAsync: deleteMyCampaign } = useDeleteMyCampaign();
 
-  if (!user) return null;
+  if (!userId) return null;
 
   const getCtaStatus = (): Cta => {
     // 1. Application-specific Logic

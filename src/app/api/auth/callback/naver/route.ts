@@ -9,6 +9,7 @@ import axios from 'axios';
 import { CONSTANTS } from '@shared/config/constants';
 import { ROUTES } from '@shared/config/routes';
 import { verifyOAuthStateCookie } from '@shared/lib/cookies.server';
+import { env } from '@shared/config/env';
 import type { NaverTokenResponse, AuthResponse } from '@shared/types/auth.types';
 
 /**
@@ -40,7 +41,7 @@ export async function GET(request: NextRequest) {
     let token: string;
     let mockUserId: string | undefined;
 
-    if (process.env.NODE_ENV === 'development') {
+    if (env.useMock) {
       const { generateJWT } = await import('@shared/lib/jwt');
 
       const mockNaverUser = {
@@ -96,7 +97,7 @@ export async function GET(request: NextRequest) {
       maxAge: 60 * 60 * 24 * 7,
     });
 
-    if (process.env.NODE_ENV === 'development') {
+    if (env.useMock) {
       response.cookies.set(CONSTANTS.COOKIE_KEYS.MOCK_USER_ID, mockUserId!, {
         httpOnly: false,
         sameSite: 'lax',
